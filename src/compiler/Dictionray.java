@@ -17,31 +17,38 @@ import java.util.List;
  * @param <K>
  */
 public class Dictionray<K,V> {
-    private List< Entry<K,V> > map;
+    private  Entry <K,V>[] map ;
+    private int counter  =0;
     public Dictionray(){
-        this.map = new LinkedList< Entry<K,V> >();
+       this.map = new Entry[100000];
     }
     public V Get(K key){
-        for(int i =0;i<this.map.size();i++){
-            if(this.map.get(i).Key()==key){
-                return this.map.get(i).Value(); 
+        for(int i =0;i<this.counter;i++){
+            if(this.map[i].Key()==key){
+                return this.map[i].Value(); 
             }
-        
-    }
+        }
         return null;
     }
     public void insert(K key, V value){
         Entry<K,V> item = new Entry<K,V>(key,value);
-        this.map.add(item);
+        if(this.counter == 0){
+           this.map[0] = item;
+           this.counter ++;
+        }else {
+            this.map[counter]=item;
+            this.counter++;
+        }
+       
         
     }
     public void delete(Entry<K,V> item){
-        this.map.remove(item);
+       //lwo a7tgnha 
     }
     public Integer Size(){
-        return this.map.size();
+        return this.counter;
     }
     public boolean Empty(){
-        return this.Size()==0 ;
+        return this.Size()==0;
     }
 }
