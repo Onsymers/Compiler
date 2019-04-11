@@ -21,8 +21,9 @@ public class Compiler {
         Frame frame=new Frame();
         
         frame.setVisible(true);
-        
-        
+        Dictionray<String , String> mydic = new Dictionray<>();
+        mydic.insert("if","condition");
+        System.out.println(mydic.Get("if"));
 //        String x="omar";
 //        
 //        System.out.println(x.length());
