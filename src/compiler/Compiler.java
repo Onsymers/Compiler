@@ -23,7 +23,7 @@ public class Compiler {
         frame.setVisible(true);
         Dictionray<String , String> mydic = new Dictionray<>();
         mydic.insert("if","condition");
-        System.out.println(mydic.Get("if"));
+        System.out.println(mydic.Get_value("if"));
 //        String x="omar";
 //        
 //        System.out.println(x.length());

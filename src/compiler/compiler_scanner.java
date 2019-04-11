@@ -11,17 +11,28 @@ package compiler;
  */
 import java.util.*;
 public class compiler_scanner{
-
-    public ArrayList<String> words ;
-    public Character[] token;
     
+    public Dictionray<Character[] , Character[] > resrverd_words;
+    private int pointer  =0;
     public compiler_scanner(){
+        resrverd_words = new Dictionray<Character[], Character[]>();
+    }
+    public void Scan_interface(){
         
     }
-    
-    public String Scan(ArrayList<String> words){
+    public void Scan_file(Character[] words,int Size){
         
-      return "ali";
+    }
+    public Entry<Character[],Character[]> Search_For_Key_Word(Character[] word){
+        for(int index = 0;index<this.resrverd_words.Size();index++){
+               if(this.resrverd_words.Get_value(word)!=null){
+                   return this.resrverd_words.Get_Pair(word);
+            }
+        }
+        return null;
+    }
+    public Entry<Character[],Character[]> Search_In_Transition_Table(Character[] words){
+        
     }
    
 }

@@ -22,10 +22,18 @@ public class Dictionray<K,V> {
     public Dictionray(){
        this.map = new Entry[100000];
     }
-    public V Get(K key){
+    public V Get_value(K key){
         for(int i =0;i<this.counter;i++){
             if(this.map[i].Key()==key){
                 return this.map[i].Value(); 
+            }
+        }
+        return null;
+    }
+    public Entry<K,V> Get_Pair(K key){
+        for(int i =0;i<this.counter;i++){
+            if(this.map[i].Key()==key){
+                return this.map[i]; 
             }
         }
         return null;
