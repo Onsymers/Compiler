@@ -15,6 +15,12 @@ public class Token {
     public Token(String word){
          resrverd_words = new Dictionray<Character[], Character[]>();
     }
+    public Token(){
+         resrverd_words = new Dictionray<Character[], Character[]>();
+    }
+    public newToken(String key,String value){
+        
+    }
     public Entry<> Search_For_Key_Word(String word){
         for(int index = 0;index<this.resrverd_words.Size();index++){
                 
