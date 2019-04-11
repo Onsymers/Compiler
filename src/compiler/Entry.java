@@ -25,6 +25,12 @@ public class Entry <K,V>{
     public V Value(){
         return this.value;
     }
+    public void set_key(K key){
+        this.key = key;
+    }
+    public void set_value(V value){
+        this.value = value;
+    }
     @Override
      public boolean equals(Object obj) {
         if (obj == null)

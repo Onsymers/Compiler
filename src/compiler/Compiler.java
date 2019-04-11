@@ -5,6 +5,7 @@
  */
 package compiler;
 import GUI.Frame;
+import java.util.Arrays;
 
 /**
  *
@@ -21,9 +22,12 @@ public class Compiler {
         Frame frame=new Frame();
         
         frame.setVisible(true);
-        Dictionray<String , String> mydic = new Dictionray<>();
-        mydic.insert("if","condition");
-        System.out.println(mydic.Get("if"));
+        Dictionray<char[] , char[]> mydic = new Dictionray<>();
+        FileManger x = new FileManger();
+        mydic = x.read("Tokens.txt");
+        char[] hi = {'i','f'};
+        System.out.println(Arrays.toString(mydic.Get(hi)));
+        
 //        String x="omar";
 //        
 //        System.out.println(x.length());
