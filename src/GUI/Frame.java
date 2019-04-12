@@ -8,6 +8,7 @@ package GUI;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.DefaultStyledDocument;
 
 /**
  *
@@ -18,8 +19,13 @@ public class Frame extends javax.swing.JFrame {
     /**
      * Creates new form Frame
      */
+    DefaultStyledDocument document = new DefaultStyledDocument();
+    
     public Frame() {
         initComponents();
+        code.setDocument(document);
+        TextLineNumber tln = new TextLineNumber(code);
+        jScrollPane5.setRowHeaderView( tln );
         
     }
 
@@ -35,18 +41,13 @@ public class Frame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        autoc = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        code = new javax.swing.JTextArea();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        code = new javax.swing.JTextPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        console = new javax.swing.JTextArea();
         ScanButton = new javax.swing.JButton();
         ParseButton = new javax.swing.JButton();
         BrowseButton = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        console = new javax.swing.JTextArea();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        index = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,61 +74,20 @@ public class Frame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane4.setViewportView(jList1);
-
-        javax.swing.GroupLayout autocLayout = new javax.swing.GroupLayout(autoc);
-        autoc.setLayout(autocLayout);
-        autocLayout.setHorizontalGroup(
-            autocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        autocLayout.setVerticalGroup(
-            autocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-        );
-
-        code.setColumns(20);
-        code.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
-        code.setRows(5);
-        code.setText("jaskdn");
+        code.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         code.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 codeCaretUpdate(evt);
             }
         });
-        jScrollPane1.setViewportView(code);
+        jScrollPane5.setViewportView(code);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(autoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(640, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(autoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(258, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
+        console.setBackground(new java.awt.Color(0, 0, 0));
+        console.setColumns(20);
+        console.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
+        console.setForeground(new java.awt.Color(255, 255, 255));
+        console.setRows(5);
+        jScrollPane2.setViewportView(console);
 
         ScanButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         ScanButton.setText("Scanning");
@@ -148,20 +108,36 @@ public class Frame extends javax.swing.JFrame {
             }
         });
 
-        console.setBackground(new java.awt.Color(0, 0, 0));
-        console.setColumns(20);
-        console.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
-        console.setForeground(new java.awt.Color(255, 255, 255));
-        console.setRows(5);
-        jScrollPane2.setViewportView(console);
-
-        index.setEditable(false);
-        index.setBackground(new java.awt.Color(204, 204, 204));
-        index.setColumns(20);
-        index.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
-        index.setRows(5);
-        index.setText("1\n");
-        jScrollPane3.setViewportView(index);
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane5)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 781, Short.MAX_VALUE))
+                .addGap(67, 67, 67)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(ParseButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ScanButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BrowseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 28, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(85, 85, 85)
+                .addComponent(ScanButton)
+                .addGap(64, 64, 64)
+                .addComponent(ParseButton)
+                .addGap(59, 59, 59)
+                .addComponent(BrowseButton)
+                .addContainerGap(277, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -169,40 +145,17 @@ public class Frame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(46, 46, 46)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ScanButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                    .addComponent(ParseButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BrowseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 786, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addComponent(ScanButton)
-                        .addGap(69, 69, 69)
-                        .addComponent(ParseButton)
-                        .addGap(81, 81, 81)
-                        .addComponent(BrowseButton)))
-                .addGap(1, 1, 1)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         pack();
@@ -218,16 +171,63 @@ public class Frame extends javax.swing.JFrame {
         
         
         
-//        String codetext=code.getText();
-//        String str_token = scan.scan_code(codetext);
-//        
-//        console.setText(str_token);
+        String codetext=code.getText();     //get code from GUI
+        int len= codetext.length();         // know the lenght of the string 
+                                            //to intialize the char array
+        
+        char[] codeChar= new char[len];     // intialize array of char
+        int i = 0;
+        for(char c: codetext.toCharArray()){
+            codeChar[i]=c;                  //assign the string to the char array
+            i++;
+        }
+        //String str_token = scanner.scan_code(codeChar);     //pass the char array to the scan_code function
+        
+        //console.setText(str_token);
         
         
         
         
     }//GEN-LAST:event_ParseButtonActionPerformed
 
+//    int i;
+//        i=code.getLineCount();
+//        System.out.println(code.getCaretPosition());
+//        autoc.setLocation(autoc.getX()+code.getCaretPosition(), autoc.getY()+code.getLineCount());
+//        if(i > index.getLineCount()-1){
+//            String s =Integer.toString(i) + "\n";
+//            index.append(s);
+//        }
+//        else{
+//            if(i<index.getLineCount()-1){
+//                String str=index.getText();
+//                char c;
+//                int j= str.length()-1;
+//                
+//                str= str.substring(0,j);
+//                j--;
+//                c= str.charAt(j);
+//                while(c != '\n'){
+//                    str= str.substring(0,j);
+//                    j--;
+//                    c= str.charAt(j);
+//                }
+//                
+////                do{
+////                    
+////                    str=str.substring(0,j);
+////                    j--;
+////                }while(str.charAt(j+1)!='\n');
+//                
+//                index.setText(str);
+//            }
+//            
+//        }
+//    }
+    
+    
+    
+    
     private void BrowseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BrowseButtonActionPerformed
         // TODO add your handling code here:
         JFileChooser fileChooser = new JFileChooser();
@@ -243,39 +243,48 @@ public class Frame extends javax.swing.JFrame {
 
     private void codeCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_codeCaretUpdate
         // TODO add your handling code here:
-        int i;
-        i=code.getLineCount();
-        System.out.println(code.getCaretPosition());
-        autoc.setLocation(autoc.getX()+code.getCaretPosition(), autoc.getY()+code.getLineCount());
-        if(i > index.getLineCount()-1){
-            String s =Integer.toString(i) + "\n";
-            index.append(s);
-        }
-        else{
-            if(i<index.getLineCount()-1){
-                String str=index.getText();
-                char c;
-                int j= str.length()-1;
-                
-                str= str.substring(0,j);
-                j--;
-                c= str.charAt(j);
-                while(c != '\n'){
-                    str= str.substring(0,j);
-                    j--;
-                    c= str.charAt(j);
-                }
-                
-//                do{
-//                    
-//                    str=str.substring(0,j);
+        
+        docume
+        
+        
+        
+        
+        
+//        int i =code.getText().split("\n").length;
+//        System.out.println(i);
+//        
+//        //System.out.println(code.getCaretPosition());
+//        //autoc.setLocation(autoc.getX()+code.getCaretPosition(), autoc.getY()+i);
+//        if(i > index.getLineCount()-1){
+//            String s =Integer.toString(i) + "\n";
+//            index.append(s);
+//        }
+//        else{
+//            if(i<index.getLineCount()-1){
+//                String str=index.getText();
+//                char c;
+//                int j= str.length()-1;
+//                
+//                str= str.substring(0,j);
+//                j--;
+//                c= str.charAt(j);
+//                while(c != '\n'){
+//                    str= str.substring(0,j);
 //                    j--;
-//                }while(str.charAt(j+1)!='\n');
-                
-                index.setText(str);
-            }
+//                    c= str.charAt(j);
+//                }
+//                
+////                do{
+////                    
+////                    str=str.substring(0,j);
+////                    j--;
+////                }while(str.charAt(j+1)!='\n');
+//                
+//                index.setText(str);
+//            }
             
-        }
+//        }
+    
     }//GEN-LAST:event_codeCaretUpdate
 
     /**
@@ -318,17 +327,12 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JButton BrowseButton;
     private javax.swing.JButton ParseButton;
     private javax.swing.JButton ScanButton;
-    private javax.swing.JPanel autoc;
-    private javax.swing.JTextArea code;
+    private javax.swing.JTextPane code;
     private javax.swing.JTextArea console;
-    private javax.swing.JTextArea index;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     // End of variables declaration//GEN-END:variables
 }
