@@ -28,8 +28,7 @@ public class Compiler {
         item.set_key(ali);
         item.set_value(ahmed);
         tokens.insert(1,item);
-        Object x = tokens.Get_value(1).Key();
-        Object y = tokens.Get_value(1).Value();
+        Entry x = tokens.Get_value(1);
         
         //// GUI TEST
         System.out.println("GUI:");
