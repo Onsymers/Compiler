@@ -27,38 +27,14 @@ public class Entry <K,V>{
         return this.value;
     }
     public void set_key(K key){
-        if(key instanceof String){
-            char val[];
-            val = (char [])key;
-            char val1[] = new char[1000];
-            int pointer =0;
-            while(val[pointer]!='\0'){
-               val1[pointer]=val[pointer];
-               pointer++;
-            }
-            this.key = (K)val;
-            System.out.println(this.key);
-        }else {
             this.key=key;
-        }
-     
-
+        
     }
     public void set_value(V value){
-        if(value instanceof String){
-            char val[];
-            val = (char [])value;
-            char val1[]=new char[1000];
-            int pointer =0;
-            while(val[pointer]!='\0'){
-               val1[pointer]=val[pointer];
-               pointer++;
-            }
-            this.value = (V) val;
-        }else{
          this.value=value;
  
-        }
+        
+
     }
     @Override
      public boolean equals(Object obj) {

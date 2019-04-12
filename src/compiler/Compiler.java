@@ -19,7 +19,11 @@ public class Compiler {
     public static void main(String[] args) {
         
         Frame frame=new Frame();
+
+        
+       // frame.setVisible(true);
         frame.setVisible(true);
+
         Dictionray<String , String> mydic = new Dictionray<>();
         Dictionray<Integer,Entry> tokens = new Dictionray<>();
         Entry<char [],char []>item = new Entry<>();
@@ -28,7 +32,10 @@ public class Compiler {
         item.set_key(ali);
         item.set_value(ahmed);
         tokens.insert(1,item);
-        Entry x = tokens.Get_value(1);
+
+        System.out.println((char [])tokens.Get_value(1).Value());
+        Object x = tokens.Get_value(1).Key();
+        Object y = tokens.Get_value(1).Value();
         
         //// GUI TEST
         System.out.println("GUI:");
@@ -39,6 +46,7 @@ public class Compiler {
         
         System.out.println("Token name for: " +Arrays.toString(hi) +" is \n"+Arrays.toString(mydict.Get_value(hi)));
         
+
 //        mydic.insert("if","condition");
 //        //System.out.println(mydic.Get_value("if"));
 //        System.out.print("ali\n");

@@ -46,9 +46,11 @@ public class Dictionray<K,V> {
              
             }
         }else if(key instanceof Integer ){
+
             for(int i =0;i<this.counter;i++){
                 if(this.map[i].Key().equals(key)){
                     return this.map[i].Value();
+
                 }
             }
         }
