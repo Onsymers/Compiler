@@ -20,10 +20,19 @@ public class Compiler {
         
         Frame frame=new Frame();
         
-        frame.setVisible(true);
+       // frame.setVisible(true);
         Dictionray<String , String> mydic = new Dictionray<>();
-        mydic.insert("if","condition");
-        System.out.println(mydic.Get_value("if"));
+        Dictionray<Integer,Entry> tokens = new Dictionray<>();
+        Entry<char [],char []>item = new Entry<>();
+        char ahmed [] ={'a','l','i','\0'};
+        char ali [] ={'a','l','y','\0'};
+        item.set_key(ali);
+        item.set_value(ahmed);
+        tokens.insert(1,item);
+        System.out.println(tokens.Get_value(1).Value());
+//        mydic.insert("if","condition");
+//        //System.out.println(mydic.Get_value("if"));
+//        System.out.print("ali\n");
 //        String x="omar";
 //        
 //        System.out.println(x.length());

@@ -20,19 +20,44 @@ public class Dictionray<K,V> {
     private  Entry <K,V>[] map ;
     private int counter  =0;
     public Dictionray(){
-       this.map = new Entry[100000];
+       this.map = new Entry[10000000];
     }
+
+
     public V Get_value(K key){
-        for(int i =0;i<this.counter;i++){
-            if(this.map[i].Key()==key){
+        if(key instanceof char []){
+           
+         for(int index =0;index<this.counter;index++){
+             char[]item,item2;
+             item = (char [])this.map[index].Key();
+             item2 = (char[])key;
+             boolean flag =true;
+             int pointer =0;
+             while(item[pointer]!='\0'&&item2[pointer]=='\0'){
+                 if(item[pointer]!=item2[pointer]){
+                     flag = false;
+                     break;
+                 }
+                 pointer++;
+             }
+             if(flag==true||item[pointer]=='\0'&&item2[pointer]=='\0'){
+                 return this.map[index].Value();
+             }
+             
+            }
+        }else if(key instanceof Integer ){
+               for(int i =0;i<this.counter;i++){
+            if(this.map[i].Key().equals(key)){
                 return this.map[i].Value(); 
+                }
             }
         }
+       
         return null;
     }
     public Entry<K,V> Get_Pair(K key){
         for(int i =0;i<this.counter;i++){
-            if(this.map[i].Key()==key){
+            if(this.map[i].Key().equals(key)){
                 return this.map[i]; 
             }
         }

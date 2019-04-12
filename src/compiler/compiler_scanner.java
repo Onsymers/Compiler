@@ -12,18 +12,37 @@ package compiler;
 import java.util.*;
 public class compiler_scanner{
     
-    public Dictionray<Character[] , Character[] > resrverd_words;
+    public Dictionray<char[] , char[] > resrverd_words;
+    public Dictionray<Entry , Integer > tokens;
     private int pointer  =0;
+    private int Number_Of_Errors =0;
+    private int number_of_line =1;
     public compiler_scanner(){
-        resrverd_words = new Dictionray<Character[], Character[]>();
+        resrverd_words = new Dictionray<>();
     }
-    public void Scan_interface(){
+    public void Scan_interface(char[] words){
+        char token [] = new char[10000];
+        
+        while(words[pointer]!='\0'){
+         if(words[pointer]!=' '&&words[pointer]!='#'&&words[pointer]!='\t'&&words[pointer]!='\n'){
+                token[pointer]=words[pointer];
+            
+        }else{
+                
+             if(Search_For_Key_Word(token)==null){
+                    
+                }else{
+                    
+                }
+   
+            }
+            
+        }
+    }
+    public void Scan_file(char[] words){
         
     }
-    public void Scan_file(Character[] words,int Size){
-        
-    }
-    public Entry<Character[],Character[]> Search_For_Key_Word(Character[] word){
+    public Entry<char[],char[]> Search_For_Key_Word(char[] word){
         for(int index = 0;index<this.resrverd_words.Size();index++){
                if(this.resrverd_words.Get_value(word)!=null){
                    return this.resrverd_words.Get_Pair(word);
@@ -31,8 +50,8 @@ public class compiler_scanner{
         }
         return null;
     }
-    public Entry<Character[],Character[]> Search_In_Transition_Table(Character[] words){
-        
+    public Entry<char[],char[]> Search_In_Transition_Table(char[] words){
+      return null;  
     }
    
 }
