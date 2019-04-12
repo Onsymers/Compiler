@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Scanner;
  * @author Tamer A.Yassen
  */
 public class FileManger {
-
+    
     public boolean write(String Query, String FilePath, boolean appendType) {
 
         PrintWriter writter = null;
@@ -32,182 +33,75 @@ public class FileManger {
         }
         return false;
     }
+    
+    public Entry<char[] , char[] > t2seem(char[] chars){
+        Entry<char[] , char[] > Entry = new Entry();
+        int l = this.charlength(chars);
+        int i=0;
+        for(;i<l;i++){
+            if (chars[i]=='@'){
+                char[] key = charslice(chars,0,i);
+                //System.out.println(Arrays.toString(key));
+                Entry.set_key(key);
+                break;
+            }
+        }
+        
+        char[] value =charslice(chars,i+1,l);
+        //System.out.println(Arrays.toString(value));
+        
+        Entry.set_value(value);
 
-    public ArrayList<Object> read(String FilePath) {
+        return Entry;
+    }
+    
+    public char[] charslice(char[] chars,int start,int end){
+        char[] slice= new char[end-start]; 
+        int i;
+        int x = 0;
+        for(i=start;i<end;i++){
+            slice[x]=chars[i];
+            x++;
+        }
+        return slice;
+    }
+    
+    public int charlength(char[] x){
+        int length = 0 ;
+        for (char z : x){
+            length++;
+        }
+        return length;
+    }
+    
+    public Dictionray<char[] , char[] > read(String FilePath) {
         Scanner Reader = null;
         try {
             System.out.println("Reading ! From " + FilePath);
             File Path = new File(FilePath);
 
             Reader = new Scanner(Path);
-
+            
         } catch (FileNotFoundException e) {
             System.out.println(e);
         }
 
         if (FilePath.equals("Tokens.txt")) {
 
-            ArrayList<Token> Students = new ArrayList<Token>();
-            Token x;
-
+            Dictionray<char[] , char[] > Entries = new Dictionray<char[] , char[] >();
+            Entry <char[] , char[]> seprated;
+            
             while (Reader.hasNext()) {
+                seprated = new Entry();
+                char[] Line = Reader.nextLine().toCharArray();
+                //if@condition                
+                seprated = this.t2seem(Line);
 
-                x = new Token();
-                String Line = Reader.nextLine();
-                String[] seprated = Line.split("@");
-
-                // 20140011@Ahmed@Ali@20@2@3.5@CS@STU_1@12345678@
-                x.setID(Integer.parseInt(seprated[0]));
-                x.setFName(seprated[1]);
-                x.setLName(seprated[2]);
-                x.setAge(Integer.parseInt(seprated[3]));
-                x.setLevel(Integer.parseInt(seprated[4]));
-                x.setGPA(Double.parseDouble(seprated[5]));
-
-                if (seprated[6].equals("CS")) {
-                    x.setDept(Main.cs);
-                } else if (seprated[6].equals("IS")) {
-                    x.setDept(Main.is);
-                } else if (seprated[6].equals("IT")) {
-                    x.setDept(Main.it);
-                } else if (seprated[6].equals("SW")) {
-                    x.setDept(Main.sw);
-                }
-
-                x.setUserName(seprated[7]);
-                x.setPass(seprated[8]);
-
-                Students.add(x);
+                Entries.insert(seprated.Key(),seprated.Value());
             }
+            return Entries;
 
-            return (ArrayList<Object>) (Object) Students;
-
-        } else if (FilePath.equals("Professor.txt")) {
-
-            ArrayList<Professor> Professors = new ArrayList<Professor>();
-            Professor x;
-
-            while (Reader.hasNext()) {
-
-                x = new Professor();
-                String Line = Reader.nextLine();
-                String[] seprated = Line.split("@");
-
-                // 1@Ayman@Ezzat@30@8000.0@Mon 12pm to 2pm@CS@Prof_1@12345678@
-                x.setID(Integer.parseInt(seprated[0]));
-                x.setFName(seprated[1]);
-                x.setLName(seprated[2]);
-                x.setAge(Integer.parseInt(seprated[3]));
-                x.setSalary(Double.parseDouble(seprated[4]));
-                x.setOfficeHours(seprated[5]);
-
-                if (seprated[6].equals("CS")) {
-                    x.setDept(Main.cs);
-                } else if (seprated[6].equals("IS")) {
-                    x.setDept(Main.is);
-                } else if (seprated[6].equals("IT")) {
-                    x.setDept(Main.it);
-                } else if (seprated[6].equals("SW")) {
-                    x.setDept(Main.sw);
-                }
-
-                x.setUserName(seprated[7]);
-                x.setPass(seprated[8]);
-
-                Professors.add(x);
-            }
-
-            return (ArrayList<Object>) (Object) Professors;
-
-        } else if (FilePath.equals("TA.txt")) {
-
-            ArrayList<TeachingAssistant> TAs = new ArrayList<TeachingAssistant>();
-            TeachingAssistant x;
-
-            while (Reader.hasNext()) {
-
-                x = new TeachingAssistant();
-                String Line = Reader.nextLine();
-                String[] seprated = Line.split("@");
-
-                // 1@Tamer@Yassen@25@5000.0@Sun 10am to 12pm@CS@TA_1@12345678@
-                x.setID(Integer.parseInt(seprated[0]));
-                x.setFName(seprated[1]);
-                x.setLName(seprated[2]);
-                x.setAge(Integer.parseInt(seprated[3]));
-                x.setSalary(Double.parseDouble(seprated[4]));
-                x.setacademicHours(seprated[5]);
-
-                if (seprated[6].equals("CS")) {
-                    x.setDept(Main.cs);
-                } else if (seprated[6].equals("IS")) {
-                    x.setDept(Main.is);
-                } else if (seprated[6].equals("IT")) {
-                    x.setDept(Main.it);
-                } else if (seprated[6].equals("SW")) {
-                    x.setDept(Main.sw);
-                }
-
-                x.setUserName(seprated[7]);
-                x.setPass(seprated[8]);
-
-                TAs.add(x);
-            }
-
-            return (ArrayList<Object>) (Object) TAs;
-
-        } else if (FilePath.equals("Employee.txt")) {
-
-            ArrayList<studentAffairsEmp> Employees = new ArrayList<studentAffairsEmp>();
-            studentAffairsEmp x;
-
-            while (Reader.hasNext()) {
-
-                x = new studentAffairsEmp();
-                String Line = Reader.nextLine();
-                String[] seprated = Line.split("@");
-
-                // 1@Shaima@Ali@35@3500.0@SA@SA_1@12345678@
-                x.setID(Integer.parseInt(seprated[0]));
-                x.setFName(seprated[1]);
-                x.setLName(seprated[2]);
-                x.setAge(Integer.parseInt(seprated[3]));
-                x.setSalary(Double.parseDouble(seprated[4]));
-
-                if (seprated[5].equals("SA")) {
-                    x.setDept(Main.sa);
-                }
-
-                x.setUserName(seprated[6]);
-                x.setPass(seprated[7]);
-
-                Employees.add(x);
-            }
-
-            return (ArrayList<Object>) (Object) Employees;
-
-        } else if (FilePath.equals("Courses.txt")) {
-
-            ArrayList<Course> Courses = new ArrayList<Course>();
-            Course x;
-
-            while (Reader.hasNext()) {
-
-                x = new Course();
-                String Line = Reader.nextLine();
-                String[] seprated = Line.split("@");
-
-                // PL2@CS213@100@
-                x.setCname(seprated[0]);
-                x.setCId(seprated[1]);
-                x.setCreditHours(Integer.parseInt(seprated[2]));
-
-                Courses.add(x);
-            }
-
-            return (ArrayList<Object>) (Object) Courses;
-
-        } else {
+        }else {
             return null;
         }
 

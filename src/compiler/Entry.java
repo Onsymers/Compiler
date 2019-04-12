@@ -27,7 +27,7 @@ public class Entry <K,V>{
         return this.value;
     }
     public void set_key(K key){
-        if(key instanceof char []){
+        if(key instanceof String){
             char val[];
             val = (char [])key;
             char val1[] = new char[1000];
@@ -45,7 +45,7 @@ public class Entry <K,V>{
 
     }
     public void set_value(V value){
-        if(value instanceof char []){
+        if(value instanceof String){
             char val[];
             val = (char [])value;
             char val1[]=new char[1000];
