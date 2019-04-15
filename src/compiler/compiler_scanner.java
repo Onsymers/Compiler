@@ -14,7 +14,7 @@ public class compiler_scanner{
     
     private Dictionray<char[] , char[] > resrverd_words;
     private Dictionray<Entry , Integer > tokens;
-    private Dictionray<Integer,char[]> token_names;
+    //private Dictionray<Integer,char[]> token_names;
     private int [][] transtion_table;
     private boolean [] accept_state;
     private char [] chars ;
@@ -26,59 +26,36 @@ public class compiler_scanner{
     public compiler_scanner(){
         tokens = new Dictionray<>();
         resrverd_words = new Dictionray<>();
-        token_names = new Dictionray<>();
+//        token_names = new Dictionray<>();
         manager = new FileManger();
-        transtion_table = new int[36][29];
+        transtion_table = new int[36][30];
         accept_state = new boolean[50];
         resrverd_words  = manager.read("Tokens.txt");
         set_transtion(transtion_table);
         set_accept_state(accept_state);
-        set_token_names(token_names);
+  //      set_token_names(token_names);
     }
     public Dictionray<Entry , Integer > Scan(char[] words){
         char token [] = new char[100];
         int pointer =0;
         int index =0;
         while(words[pointer]!='\0'){
-            if(words[pointer]!=' ' && words[pointer]!='\t' && words[pointer]!='\n' && words[pointer]!='#'){
+            if(words[pointer]!=' '){
+                if(words[pointer]=='\n')number_of_line++;
                 token[index]=words[pointer]; 
                 index++;
             }else{
                 
-                
-                Entry <char [],char []>word = Search_in_transtion_table(token);
-                char [] id = {'I','D','\0'};
-                if(Char_array_util.equals(word.Value(),id)){
-                    
+                char []token1=Char_array_util.make_token(token, index);
+                Entry <char [],char []>word = Search_in_transtion_table(token1);
+                if(Search_For_Key_Word(word.Key())!=null){
+                        word = Search_For_Key_Word(word.Key());
                 }
-                    
-                index = 0;
-                token  = new char[100];
-               // System.out.println((char [])word.Value());
-                //will be changed 
-               tokens.insert(word, number_of_line);
-            if(words[pointer]=='\n'){
-                char []line_delimiter = {'l','i','n','e',' ','d','e','l','i','m','i','t','e','r','\0'};
-                char [] key_word = {'\n','\0'};
-                Entry <char [],char []> item = new Entry<>(key_word,line_delimiter);
-                tokens.insert(item, number_of_line);
-                number_of_line++;//
-            }else if(words[pointer]=='\t'){
-                
-            }else if(words[pointer]=='#'){
-                char []line_delimiter = {'l','i','n','e',' ','d','e','l','i','m','i','t','e','r','\0'};
-                char [] key_word = {'#','\0'};
-                Entry <char [],char []> item = new Entry<>(key_word,line_delimiter);
-                tokens.insert(item, number_of_line);
-            }else if(words[pointer]==' '){
-                
-            }else if(words[pointer]==';'){
-                char []line_delimiter = {'l','i','n','e',' ','d','e','l','i','m','i','t','e','r','\0'};
-                char [] key_word = {';','\0'};
-                Entry <char [],char []> new_item = new Entry<>(key_word,line_delimiter);
-                tokens.insert(new_item, number_of_line);
-            }
-
+                tokens.insert(word, number_of_line);
+               
+             
+            index = 0;
+            token  = new char[100];
             }
         pointer++;   
 
@@ -88,30 +65,29 @@ public class compiler_scanner{
     }
     
     public Entry<char[],char[]> Search_For_Key_Word(char[] word){
+           
         for(int index = 0;index<this.resrverd_words.Size();index++){
                if(this.resrverd_words.Get_value(word)!=null){
                    return this.resrverd_words.Get_value(word);
             }
         }
         
-        return null;
+        return null ;
     }
     public Entry<char [],char[]> Search_in_transtion_table(char word[]){
         int iterator =0;
         int state = 1;
         //int current_state;
-       // System.out.println(word);
+       
        do{
-           //System.out.println(word[iterator]);
+           
            if(word[iterator]>='0'&&word[iterator]<='9'){
                state = transtion_table[state][24];
            }
            else if((word[iterator]>='a' && word[iterator]<='z') || (word[iterator] >= 'A' && word[iterator]<='Z') || word[iterator]=='_'){
                 //System.out.println(word[iterator]);
                 state = transtion_table[state][25];  
-            }
-            else{
-
+           }else{
                 switch (word[iterator]){
                        case '+':
                        state = transtion_table[state][1];
@@ -215,13 +191,17 @@ public class compiler_scanner{
                        default:
                        state=0;
                    }
+                
   
            }
+//           System.out.println(iterator); 
            iterator++;
-            //System.out.println("a");
+            
        }while(iterator<Char_array_util.len(word)&&error(state)==1);
+       
+        
         if(state==0||error(state)==0){
-            //System.out.println("error");
+            
         Entry <char[],char []>error = new Entry<>();
         error.set_key(word);
         char val[] = {'e','r','r','o','r','\0'};
@@ -230,9 +210,10 @@ public class compiler_scanner{
         }
         Entry <char[],char []>accept_token = new Entry<>();
         accept_token.set_key(word);
-        if(token_names.Get_value(state).Value()!=null){
-            accept_token.set_value(token_names.Get_value(state).Value());
+        if(Get_Token_Name(state)!=null){
+            accept_token.set_value(Get_Token_Name(state));
         }
+      
     return accept_token;
     }
     private int error(int state){
@@ -262,7 +243,8 @@ public class compiler_scanner{
         transtion_table[1][17]=18;
         transtion_table[1][18]=19;
         transtion_table[1][19]=20;
-        transtion_table[1][20]=21;
+        transtion_table[1][20]=29;
+        transtion_table[1][22]=35;
         transtion_table[1][24]=23;
         transtion_table[1][25]=22;
         transtion_table[1][26]=34;
@@ -286,16 +268,26 @@ public class compiler_scanner{
 
     }
 
-    private void set_token_names(Dictionray<Integer,char []> token_names) {
-        char [] state = {'c','o','n','s','t','a','n','t','\0'};
-        token_names.insert(23,state);
-        token_names.insert(25, state);
-      
+    private char[] Get_Token_Name(int state) {
         
-        char [] state1 = {'I','D','\0'};
-        token_names.insert(22,state);
-        token_names.insert(30,state);
-        token_names.insert(31,state);
+        if(state==23||state==25){
+        char [] token_name = {'c','o','n','s','t','a','n','t','\0'};
+        return token_name;
+        }else if(state==22||state==30||state==31){
+        char [] token_name = {'I','D','\0'};
+        return token_name;
+        }else if(state==32||state==29){
+        char [] token_name = {'l','i','n','e',' ','d','e','l','i','m','i','t','e','r','\0'};
+        return token_name; 
+        }
+        //delimiter
+
+      return null;
+        
+        
+//        token_names.insert(22,state);
+//        token_names.insert(30,state);
+//        token_names.insert(31,state);
 
     }
 

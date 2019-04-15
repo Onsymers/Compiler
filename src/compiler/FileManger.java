@@ -56,14 +56,14 @@ public class FileManger {
     }
     
     public char[] charslice(char[] chars,int start,int end){
-        char[] slice= new char[end-start+1]; 
+        char[] slice= new char[end-start]; 
         int i;
         int x = 0;
         for(i=start;i<end;i++){
             slice[x]=chars[i];
             x++;
         }
-        slice[x]='\0';
+        //slice[x]='\0';
         return slice;
     }
     

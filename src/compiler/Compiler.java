@@ -21,20 +21,25 @@ public class Compiler {
         Frame frame=new Frame();
         boolean [] a = new boolean[2];
         compiler_scanner s = new compiler_scanner();
-        String test = "ads";
-        char words [] ={'1',' ','2'};
-        Dictionray<Entry , Integer > tokens=s.Scan(words);
-       // System.out.println(tokens.Size());
+        String test = "Iow ali = 10 # \n Law $omar ( ali == 10 ) { print ( ali ) } Else { print ( omar ) } \0";
+        String test2 = "\n \0";
+        char words [] =test.toCharArray();
+        char[] x = {'I','o','w'};
+        char[] z ={'I','o','w'};
+       
+       Dictionray<Entry , Integer > tokens=s.Scan(words);
+       
+        //System.out.println(tokens.Size());
         for(int i =0;i<tokens.Size();i++){
             System.out.print(tokens.EntryAt(i).Value());
             System.out.print(" ");
             System.out.print((char[])(tokens.EntryAt(i).Key().Key()));
             System.out.print(" ");
             System.out.println((char[])tokens.EntryAt(i).Key().Value());
-            
-             
+          }  
+                
         }
-        System.out.print("Done");
+        //System.out.print("Done");
         //System.exit(1);
     //System.out.print(a[0]);
        ///frame.setVisible(true);
@@ -42,6 +47,6 @@ public class Compiler {
         
         
         
-    }
+  }
     
-}
+

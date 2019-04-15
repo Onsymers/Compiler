@@ -28,25 +28,11 @@ public class Dictionray<K,V> {
         if(key instanceof char []){
           //System.out.println(this.counter);
          for(int index =0;index<this.counter;index++){
-             char[]item,item2;
-             item = (char [])this.map[index].Key();
-             item2 = (char[])key;
-             boolean flag =true;
-             int pointer =0;
-             while(item[pointer]!='\0'&&item2[pointer]!='\0'){
-                 if(item[pointer]!=item2[pointer]){
-                     flag = false;
-                     break;
-                 }
-                 pointer++;
-             }
-             if(flag==true&&item[pointer]=='\0'&&item2[pointer]=='\0'){
+                 char [] true_key = (char [])this.map[index].Key();
+                 char [] checked_key = (char []) key;
+             if(Char_array_util.equals(true_key,checked_key)){
                  return this.map[index];
-             }else {
-                 char[] err = {'e','r','r','o','r'};
-                 Entry error = new Entry(key,err);
-                 return null;
-             }
+                }
              
             }
         }else if(key instanceof Integer ){
