@@ -14,7 +14,8 @@ import java.util.Scanner;
  * @author Tamer A.Yassen
  */
 public class FileManger {
-    
+    Char_array_util CharHelper = new Char_array_util();
+
     public boolean write(String Query, String FilePath, boolean appendType) {
 
         PrintWriter writter = null;
@@ -36,7 +37,7 @@ public class FileManger {
     
     public Entry<char[] , char[] > t2seem(char[] chars){
         Entry<char[] , char[] > Entry = new Entry();
-        int l = this.charlength(chars);
+        int l = CharHelper.len(chars);
         int i=0;
         for(;i<l;i++){
             if (chars[i]=='@'){
@@ -67,13 +68,7 @@ public class FileManger {
         return slice;
     }
     
-    public int charlength(char[] x){
-        int length = 0 ;
-        for (char z : x){
-            length++;
-        }
-        return length;
-    }
+    
     
     public Dictionray<char[] , char[] > read(String FilePath) {
         Scanner Reader = null;
@@ -106,6 +101,27 @@ public class FileManger {
             return null;
         }
 
+    }
+    
+    
+    public char[] readfromText(String FilePath) {
+        Scanner Reader = null;
+        try {
+            //System.out.println("Reading ! From " + FilePath);
+            File Path = new File(FilePath);
+
+            Reader = new Scanner(Path);
+            
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        }
+        
+        String code=" ";
+        while (Reader.hasNext()) {
+            code += Reader.nextLine();
+            //if@condition
+        }
+        return code.toCharArray();
     }
 
 }

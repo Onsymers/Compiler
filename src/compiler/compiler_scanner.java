@@ -40,19 +40,21 @@ public class compiler_scanner{
         int pointer =0;
         int index =0;
         while(words[pointer]!='\0'){
-            if(words[pointer]!=' '){
-                if(words[pointer]=='\n')number_of_line++;
+            if(words[pointer]!=' '&&words[pointer]!='\t'){
+                
                 token[index]=words[pointer]; 
                 index++;
             }else{
-                
-                char []token1=Char_array_util.make_token(token, index);
-                Entry <char [],char []>word = Search_in_transtion_table(token1);
-                if(Search_For_Key_Word(word.Key())!=null){
-                        word = Search_For_Key_Word(word.Key());
+                if(token[0]!='\0'){
+                    char []token1=Char_array_util.make_token(token, index);
+                    Entry <char [],char []>word = Search_in_transtion_table(token1);
+                    if(Search_For_Key_Word(word.Key())!=null){
+                            word = Search_For_Key_Word(word.Key());
+                    }
+                    tokens.insert(word, number_of_line);
+                    if(words[pointer-1]=='\n')
+                        number_of_line++;
                 }
-                tokens.insert(word, number_of_line);
-               
              
             index = 0;
             token  = new char[100];

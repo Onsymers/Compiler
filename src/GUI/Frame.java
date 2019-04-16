@@ -5,10 +5,20 @@
  */
 package GUI;
 
+import compiler.Char_array_util;
 import java.io.File;
+import java.util.Arrays;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.DefaultStyledDocument;
+import compiler.*;
+import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 /**
  *
@@ -20,15 +30,31 @@ public class Frame extends javax.swing.JFrame {
      * Creates new form Frame
      */
     DefaultStyledDocument document = new DefaultStyledDocument();
-    
+    Char_array_util CharHelper = new Char_array_util();
+    compiler.Compiler comp = new compiler.Compiler();
+
     public Frame() {
+//        String co213ede = "if(x==5)ahmed///this is comment\n 1||1  ddfjnsdjkfn /- this is /multi comment \n comment-/hbhbhb /";
+//        char[] xy = co213ede.toCharArray();
+//        int test = CharHelper.len(xy);
+//        char[] tesast = Char_array_util.copyandspace(xy);
+//        preprocessor hey = new preprocessor();
+//        char[] yx = hey.prepro(tesast);
+//        System.out.println(Arrays.toString(yx));
         initComponents();
         code.setDocument(document);
+        code.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        code.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                codeCaretUpdate(evt);
+            }
+        });
+//        private void codeCaretUpdate(javax.swing.event.CaretEvent evt) {
+        jScrollPane1.setViewportView(code);
         TextLineNumber tln = new TextLineNumber(code);
-        jScrollPane5.setRowHeaderView( tln );
+        jScrollPane1.setRowHeaderView( tln );
         
-    }
-
+    } 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,22 +67,21 @@ public class Frame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        code = new javax.swing.JTextPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        code = new GUI.XmlTextPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        console = new javax.swing.JTextArea();
+        console = new javax.swing.JTextPane();
         ScanButton = new javax.swing.JButton();
         ParseButton = new javax.swing.JButton();
         BrowseButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(51, 102, 0));
 
-        jPanel1.setBackground(new java.awt.Color(0, 102, 102));
+        jPanel1.setBackground(new java.awt.Color(0, 131, 226));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Compiler 101");
+        jLabel1.setText("Compiler Project");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -75,25 +100,15 @@ public class Frame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(51, 51, 51));
+        jScrollPane1.setViewportView(code);
 
-        code.setBackground(new java.awt.Color(51, 51, 51));
-        code.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        code.setForeground(new java.awt.Color(204, 102, 0));
-        code.setToolTipText("");
-        code.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        code.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                codeCaretUpdate(evt);
-            }
-        });
-        jScrollPane5.setViewportView(code);
+        jScrollPane2.setBackground(new java.awt.Color(0, 0, 0));
+        jScrollPane2.setForeground(new java.awt.Color(255, 255, 255));
 
-        console.setBackground(new java.awt.Color(0, 0, 0));
-        console.setColumns(20);
-        console.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
-        console.setForeground(new java.awt.Color(255, 255, 255));
-        console.setRows(5);
+        console.setEditable(false);
+        console.setBackground(java.awt.Color.black);
+        console.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        console.setForeground(java.awt.Color.white);
         jScrollPane2.setViewportView(console);
 
         ScanButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -126,21 +141,22 @@ public class Frame extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane5)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 781, Short.MAX_VALUE))
-                .addGap(67, 67, 67)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 781, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(ParseButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ScanButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(BrowseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 28, Short.MAX_VALUE))
+                .addGap(28, 28, 28))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(85, 85, 85)
                 .addComponent(ScanButton)
@@ -157,8 +173,9 @@ public class Frame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,7 +183,7 @@ public class Frame extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         pack();
@@ -241,71 +258,80 @@ public class Frame extends javax.swing.JFrame {
     
     private void BrowseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BrowseButtonActionPerformed
         // TODO add your handling code here:
+        console.setEditable(true);
+        console.setText("");
+        console.setEditable(false);
         JFileChooser fileChooser = new JFileChooser();
+        FileManger file =new FileManger();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
         fileChooser.setFileFilter(filter);
         int returnValue = fileChooser.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION)
         {
             File selectedFile = fileChooser.getSelectedFile();
-            System.out.println(selectedFile.getAbsolutePath());
+            String path = selectedFile.getAbsolutePath();
+            char[] code = file.readfromText(path);
+            comp.PreprocessAndScan(code,this);
         }
     }//GEN-LAST:event_BrowseButtonActionPerformed
 
-    private void codeCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_codeCaretUpdate
-        // TODO add your handling code here:
-        
-      
-        
-        
-        
-        
-        
-//        int i =code.getText().split("\n").length;
-//        System.out.println(i);
-//        
-//        //System.out.println(code.getCaretPosition());
-//        //autoc.setLocation(autoc.getX()+code.getCaretPosition(), autoc.getY()+i);
-//        if(i > index.getLineCount()-1){
-//            String s =Integer.toString(i) + "\n";
-//            index.append(s);
-//        }
-//        else{
-//            if(i<index.getLineCount()-1){
-//                String str=index.getText();
-//                char c;
-//                int j= str.length()-1;
-//                
-//                str= str.substring(0,j);
-//                j--;
-//                c= str.charAt(j);
-//                while(c != '\n'){
-//                    str= str.substring(0,j);
-//                    j--;
-//                    c= str.charAt(j);
-//                }
-//                
-////                do{
-////                    
-////                    str=str.substring(0,j);
-////                    j--;
-////                }while(str.charAt(j+1)!='\n');
-//                
-//                index.setText(str);
-//            }
-            
-//        }
-    
-    }//GEN-LAST:event_codeCaretUpdate
-
     private void ScanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ScanButtonActionPerformed
         // TODO add your handling code here:
+        console.setEditable(true);
+        console.setText("");
+        console.setEditable(false);
+        char[] ourcode = code.getText().toCharArray();
+        comp.PreprocessAndScan(ourcode,this);
     }//GEN-LAST:event_ScanButtonActionPerformed
 
+    private void codeCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_codeCaretUpdate
+        // TODO add your handling code here:
+    }//GEN-LAST:event_codeCaretUpdate
+
+    public  void PrintInLog(Object x){
+        StyledDocument doc = console.getStyledDocument();
+
+        //  Define a keyword attribute
+        String string = " ";
+        if(x instanceof char[]){
+            char[] xs=(char[])x;
+            string = new String(xs);
+        }else{
+            string = String.valueOf(x);
+        }
+            
+        
+        SimpleAttributeSet ErrorWord = new SimpleAttributeSet();
+        SimpleAttributeSet NormalWord = new SimpleAttributeSet();
+        SimpleAttributeSet TemplateWord = new SimpleAttributeSet();
+
+        StyleConstants.setForeground(ErrorWord, Color.WHITE);
+        StyleConstants.setBackground(ErrorWord, Color.RED);
+        
+        StyleConstants.setForeground(NormalWord, Color.YELLOW);
+        StyleConstants.setForeground(TemplateWord, Color.WHITE);
+        
+        StyleConstants.setBold(ErrorWord, true);
+        try {
+            if(string.contains("error")){
+                doc.insertString(console.getCaretPosition(), string, ErrorWord);
+            }else if(string.contains("Line")||string.contains("Token Text")||string.contains("Token Type")){
+                doc.insertString(console.getCaretPosition(), string, TemplateWord);                
+            }else{
+                doc.insertString(console.getCaretPosition(), string, NormalWord);
+            }
+        } catch (BadLocationException ex) {
+            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//        System.out.println(string);
+//        System.out.println(code.getText());
+
+
+    }
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void maidn(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -332,7 +358,7 @@ public class Frame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Frame().setVisible(true);
+//                new Frame().setVisible(true);
             }
         });
         
@@ -342,12 +368,12 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JButton BrowseButton;
     private javax.swing.JButton ParseButton;
     private javax.swing.JButton ScanButton;
-    private javax.swing.JTextPane code;
-    private javax.swing.JTextArea console;
+    private GUI.XmlTextPane code;
+    private javax.swing.JTextPane console;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane5;
     // End of variables declaration//GEN-END:variables
 }

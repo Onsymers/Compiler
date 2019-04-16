@@ -12,13 +12,18 @@ import java.util.Arrays;
  * @author omarf
  */
 public class Compiler {
+    
+    Char_array_util CharHelper = new Char_array_util();
 
     /**
      * @param args the command line arguments
      */
+    preprocessor pre = new preprocessor();
+    compiler_scanner s = new compiler_scanner();
+    static Frame GUI=new Frame();
     public static void main(String[] args) {
             
-        Frame frame=new Frame();
+        
         //frame.setVisible(true);
         boolean [] a = new boolean[2];
         compiler_scanner s = new compiler_scanner();
@@ -30,20 +35,41 @@ public class Compiler {
        
        Dictionray<Entry , Integer > tokens=s.Scan(words);
        
-        //System.out.println(tokens.Size());
+//        System.out.println(tokens.Size());
+//        for(int i =0;i<tokens.Size();i++){
+//            System.out.print(tokens.EntryAt(i).Value());
+//            System.out.print(" ");
+//            System.out.print((char[])(tokens.EntryAt(i).Key().Key()));
+//            System.out.print(" ");
+//            System.out.println((char[])tokens.EntryAt(i).Key().Value());
+//          }
+        GUI.setVisible(true);
+    }
+    
+    public void PreprocessAndScan(char[] code,Frame GUI){
+        s = new compiler_scanner();
+        code = pre.prepro(code);
+        System.out.println("CODE is :");
+        System.out.println(code);
+        System.out.println("END OF CODE");
+        Dictionray<Entry , Integer > tokens=s.Scan(code);
+        System.out.println("size:");
+        System.out.println(tokens.Size());
         for(int i =0;i<tokens.Size();i++){
-            System.out.print(tokens.EntryAt(i).Value());
-            System.out.print(" ");
-            System.out.print((char[])(tokens.EntryAt(i).Key().Key()));
-            System.out.print(" ");
-            System.out.println((char[])tokens.EntryAt(i).Key().Value());
-          }  
-                
-        }
-        //System.out.print("Done");
-        //System.exit(1);
+            GUI.PrintInLog("Line ");
+            GUI.PrintInLog(tokens.EntryAt(i).Value());
+            GUI.PrintInLog(": Token Text: ");            
+            GUI.PrintInLog((char[])tokens.EntryAt(i).Key().Key());
+            GUI.PrintInLog(" Token Type: "); 
+            GUI.PrintInLog((char[])tokens.EntryAt(i).Key().Value());
+            GUI.PrintInLog("\n");
+            
+          }
+    }
+    //System.out.print("Done");
+    //System.exit(1);
     //System.out.print(a[0]);
-       ///frame.setVisible(true);
+    ///frame.setVisible(true);
 
         
         

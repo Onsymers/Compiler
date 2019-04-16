@@ -41,11 +41,45 @@ public class Char_array_util {
         }
         
 }
-       static char [] make_token(char []token ,int size){
-           char [] token_real = new char[size];
-           for(int i=0;i<size;i++){
-               token_real[i] = token[i];
-           }
-           return token_real;
-       }
+    
+    public static char [] copyandspace(char [] arr){
+        int i=0;
+        int xlen=len(arr)+5;
+        char [] x= new char[xlen];
+        
+        for(char y : arr){
+            x[i]=y;
+            i++;
+        }
+        
+        while(i < xlen-1){
+            x[i]=' ';
+            i++;
+        }
+        x[i]='\0';
+        
+        return x;
+        
+        
+    }
+    
+    
+    public static char[] slice(char[] chars,int start,int end){
+        char[] slice= new char[end-start+1]; 
+        int i;
+        int x = 0;
+        for(i=start;i<end;i++){
+            slice[x]=chars[i];
+            x++;
+        }
+        //slice[x]='\0';
+        return slice;
+    }
+    static char [] make_token(char []token ,int size){
+        char [] token_real = new char[size];
+        for(int i=0;i<size;i++){
+            token_real[i] = token[i];
+        }
+        return token_real;
+    }
 }
