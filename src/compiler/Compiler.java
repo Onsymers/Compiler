@@ -58,8 +58,12 @@ public class Compiler {
         for(int i =0;i<tokens.Size();i++){
             GUI.PrintInLog("Line ");
             GUI.PrintInLog(tokens.EntryAt(i).Value());
-            GUI.PrintInLog(": Token Text: ");            
-            GUI.PrintInLog((char[])tokens.EntryAt(i).Key().Key());
+            GUI.PrintInLog(": Token Text: ");
+            char[] key = (char[])tokens.EntryAt(i).Key().Key();
+            if(key[0]=='\n')
+                GUI.PrintInLog("\\n");
+            else    
+                GUI.PrintInLog((char[])tokens.EntryAt(i).Key().Key());
             GUI.PrintInLog(" Token Type: "); 
             GUI.PrintInLog((char[])tokens.EntryAt(i).Key().Value());
             GUI.PrintInLog("\n");
