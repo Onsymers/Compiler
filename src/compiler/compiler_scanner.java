@@ -83,6 +83,7 @@ public class compiler_scanner{
            
            if(word[iterator]>='0'&&word[iterator]<='9'){
                state = transtion_table[state][24];
+               
            }
            else if((word[iterator]>='a' && word[iterator]<='z') || (word[iterator] >= 'A' && word[iterator]<='Z') || word[iterator]=='_'){
                 //System.out.println(word[iterator]);
@@ -250,7 +251,7 @@ public class compiler_scanner{
         transtion_table[1][26]=34;
         transtion_table[1][27]=34;
         transtion_table[1][28]=32;
-        transtion_table[5][5]=6;
+        transtion_table[5][5]=28;
         transtion_table[5][24]=23;
         transtion_table[7][6]=26;
         transtion_table[8][7]=23;
@@ -260,6 +261,7 @@ public class compiler_scanner{
         transtion_table[22][25]=30;
         transtion_table[22][24]=31;
         transtion_table[23][23]=24;
+        transtion_table[24][24]=25;
         transtion_table[23][24]=25;
         transtion_table[25][24]=25;
         transtion_table[30][25]=30;
@@ -270,7 +272,7 @@ public class compiler_scanner{
 
     private char[] Get_Token_Name(int state) {
         
-        if(state==23||state==25){
+        if(state==23||state==25||state==24){
         char [] token_name = {'c','o','n','s','t','a','n','t','\0'};
         return token_name;
         }else if(state==22||state==30||state==31){
@@ -296,6 +298,7 @@ public class compiler_scanner{
         accept_state[2]=true;
         accept_state[3]=true;
         accept_state[4]=true;
+        accept_state[5]=true;
         accept_state[6]=true;
         accept_state[9]=true;
         accept_state[10]=true;
@@ -322,7 +325,7 @@ public class compiler_scanner{
         accept_state[33]=true;
         accept_state[34]=true;
         accept_state[35]=true;
-
+        accept_state[24]=true;
         
     }
 

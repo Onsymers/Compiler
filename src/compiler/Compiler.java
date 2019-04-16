@@ -19,10 +19,11 @@ public class Compiler {
     public static void main(String[] args) {
             
         Frame frame=new Frame();
+        //frame.setVisible(true);
         boolean [] a = new boolean[2];
         compiler_scanner s = new compiler_scanner();
-        String test = "Iow ali = 10 # \n Law $omar ( ali == 10 ) { print ( ali ) } Else { print ( omar ) } \0";
-        String test2 = "\n \0";
+        String test = "Iow ali = 10 # \n Law $omar \n 0ali 1. -> -10 ( ali == 10 ) { print ( ali ) } Else { print ( omar ) } \0";
+        String test2 = "1.1 \0";
         char words [] =test.toCharArray();
         char[] x = {'I','o','w'};
         char[] z ={'I','o','w'};
