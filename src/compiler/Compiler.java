@@ -27,13 +27,13 @@ public class Compiler {
         //frame.setVisible(true);
         boolean [] a = new boolean[2];
         compiler_scanner s = new compiler_scanner();
-        String test = "Iow ali = 10 # \n Law $omar \n 0ali 1. -> -10 ( ali == 10 ) { print ( ali ) } Else { print ( omar ) } \0";
-        String test2 = "1.1 \0";
-        char words [] =test.toCharArray();
-        char[] x = {'I','o','w'};
-        char[] z ={'I','o','w'};
+//        String test = "Iow ali = 10 # \n Law $omar \n 0ali 1. -> -10 ( ali == 10 ) { print ( ali ) } Else { print ( omar ) } \0";
+//        String test2 = "1.1 \0";
+//        char words [] =test.toCharArray();
+//        char[] x = {'I','o','w'};
+//        char[] z ={'I','o','w'};
        
-       Dictionray<Entry , Integer > tokens=s.Scan(words);
+//       Dictionray<Entry , Integer > tokens=s.Scan(words);
        
 //        System.out.println(tokens.Size());
 //        for(int i =0;i<tokens.Size();i++){
@@ -49,12 +49,12 @@ public class Compiler {
     public void PreprocessAndScan(char[] code,Frame GUI){
         s = new compiler_scanner();
         code = pre.prepro(code);
-        System.out.println("CODE is :");
-        System.out.println(code);
-        System.out.println("END OF CODE");
+//        System.out.println("CODE is :");
+//        System.out.println(code);
+//        System.out.println("END OF CODE");
         Dictionray<Entry , Integer > tokens=s.Scan(code);
-        System.out.println("size:");
-        System.out.println(tokens.Size());
+//        System.out.println("size:");
+//        System.out.println(tokens.Size());
         for(int i =0;i<tokens.Size();i++){
             GUI.PrintInLog("Line ");
             GUI.PrintInLog(tokens.EntryAt(i).Value());
@@ -67,7 +67,6 @@ public class Compiler {
             GUI.PrintInLog(" Token Type: "); 
             GUI.PrintInLog((char[])tokens.EntryAt(i).Key().Value());
             GUI.PrintInLog("\n");
-            
           }
     }
     //System.out.print("Done");

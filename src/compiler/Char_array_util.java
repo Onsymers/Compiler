@@ -42,7 +42,7 @@ public class Char_array_util {
         
 }
     
-    public static char [] copyandspace(char [] arr){
+    public static char[] copyandspace(char [] arr){
         int i=0;
         int xlen=len(arr)+5;
         char [] x= new char[xlen];

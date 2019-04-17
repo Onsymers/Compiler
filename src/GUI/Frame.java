@@ -13,6 +13,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.DefaultStyledDocument;
 import compiler.*;
 import java.awt.Color;
+import java.awt.Point;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.text.BadLocationException;
@@ -54,7 +56,32 @@ public class Frame extends javax.swing.JFrame {
         TextLineNumber tln = new TextLineNumber(code);
         jScrollPane1.setRowHeaderView( tln );
         
-    } 
+//        ArrayList<String> words = new ArrayList<>();
+//        words.add("Law");
+//        words.add("Else");
+//        words.add("Iow");
+//        words.add("SIow");
+//        words.add("Chlo");
+//        words.add("Chain");
+//        words.add("Iowf");
+//        words.add("SIowf");
+//        words.add("Worthless");
+//        words.add("Loopwhen");
+//        words.add("Iteratewhen");
+//        words.add("Turnback");
+//        words.add("Stop");
+//        words.add("Loli");
+//        words.add("Include");
+//        Point f = this.getLocation();
+//        AutoComplete autoSuggestor = new AutoComplete(
+//                code, this, words, Color.WHITE.brighter(), Color.BLUE, Color.RED,f.x,f.y) {
+//                @Override
+//                boolean wordTyped(String typedWord) {
+//                    System.out.println(typedWord);
+//                    return super.wordTyped(typedWord);//checks for a match in dictionary and returns true or false if found or not
+//                }
+//        };
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -155,7 +182,7 @@ public class Frame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(85, 85, 85)
@@ -164,7 +191,7 @@ public class Frame extends javax.swing.JFrame {
                 .addComponent(ParseButton)
                 .addGap(59, 59, 59)
                 .addComponent(BrowseButton)
-                .addContainerGap(277, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -183,7 +210,7 @@ public class Frame extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
@@ -270,7 +297,8 @@ public class Frame extends javax.swing.JFrame {
         {
             File selectedFile = fileChooser.getSelectedFile();
             String path = selectedFile.getAbsolutePath();
-            char[] code = file.readfromText(path);
+            char[] patha = path.toCharArray();
+            char[] code = file.readfromText(patha);
             comp.PreprocessAndScan(code,this);
         }
     }//GEN-LAST:event_BrowseButtonActionPerformed

@@ -21,6 +21,7 @@ public class compiler_scanner{
     private int pointer  =0;
     private int Number_Of_Errors =0;
     private int number_of_line =1;
+    preprocessor pre = new preprocessor();
     private FileManger manager;
     private int [] error_state ;
     public compiler_scanner(){
@@ -36,9 +37,11 @@ public class compiler_scanner{
   //      set_token_names(token_names);
     }
     public Dictionray<Entry , Integer > Scan(char[] words){
-        char token [] = new char[100];
+        tokens = new Dictionray<>();
+        char token [] = new char[1000];
         int pointer =0;
         int index =0;
+        
         while(words[pointer]!='\0'){
             if(words[pointer]!=' '&&words[pointer]!='\t'){
                 
@@ -47,7 +50,7 @@ public class compiler_scanner{
             }else{
                 if(token[0]!='\0'){
                     char []token1=Char_array_util.make_token(token, index);
-                    Entry <char [],char []>word = Search_in_transtion_table(token1);
+                    Entry <char [],char []> word = Search_in_transtion_table(token1);
                     if(Search_For_Key_Word(word.Key())!=null){
                             word = Search_For_Key_Word(word.Key());
                     }
@@ -57,12 +60,23 @@ public class compiler_scanner{
                 }
              
             index = 0;
-            token  = new char[100];
+            token  = new char[1000];
             }
         pointer++;   
 
         }
-        //System.out.println(tokens.Size());
+        char[] includeword = {'I','n','c','l','u','s','i','o','n'};
+        char[] actualToken = (char[])tokens.EntryAt(0).Key().Value();
+        if(Char_array_util.equals(includeword,actualToken)){
+            char[] path = (char[])tokens.EntryAt(3).Key().Key();
+            char[] code = manager.readfromText(path);
+            if(code==null){
+                char val[] = {'e','r','r','o','r',' ','N','o',' ','p','a','t','h','\0'};
+                tokens.EntryAt(3).Key().set_value(val);
+            }else{
+                this.tokens = Scan(pre.prepro(code));
+            }
+        }
         return this.tokens;
     }
     
@@ -194,8 +208,6 @@ public class compiler_scanner{
                        default:
                        state=0;
                    }
-                
-  
            }
 //           System.out.println(iterator); 
            iterator++;

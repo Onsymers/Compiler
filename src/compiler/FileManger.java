@@ -104,7 +104,9 @@ public class FileManger {
     }
     
     
-    public char[] readfromText(String FilePath) {
+    public char[] readfromText(char[] FilePat) {
+//        System.out.println(FilePat);
+        String FilePath = new String(FilePat);
         Scanner Reader = null;
         try {
             //System.out.println("Reading ! From " + FilePath);
@@ -113,7 +115,7 @@ public class FileManger {
             Reader = new Scanner(Path);
             
         } catch (FileNotFoundException e) {
-            System.out.println(e);
+            return null;
         }
         
         String code=" ";

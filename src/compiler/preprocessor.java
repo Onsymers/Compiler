@@ -62,7 +62,7 @@ public class preprocessor {
                 }else if(code[j]=='\n'||code[j]=='#'||code[j]=='+'||code[j]=='-'||code[j]=='/'||code[j]=='*'||
                         code[j]=='~'||code[j]=='<'||code[j]=='>'||code[j]=='='||code[j]=='('
                         ||code[j]==')'||code[j]=='['||code[j]==']'||code[j]=='{'||code[j]=='}'
-                        ||code[j]==','||code[j]=='\''){
+                        ||code[j]==','||code[j]=='\''||code[j]=='"'){
                     code1[i]=' ';
                     i++;
                     code1[i]=code[j];

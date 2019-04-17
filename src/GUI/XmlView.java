@@ -49,8 +49,10 @@ public class XmlView extends PlainView {
     private static HashMap<Pattern, Color> patternColors;
     private static String GENERIC_XML_NAME = "[A-Za-z_]+[A-Za-z0-9_]*";
     private static String ID_PATTERN = "(" + GENERIC_XML_NAME + ")";
-    private static String DATA_TYPE_PATTERN = "(Iow|SIow|Chlo|Chain|Iowf|SIowf|Worthless)";
-    private static String TAG_ATTRIBUTE_PATTERN = "(" + GENERIC_XML_NAME + ")\\w*\\=";
+    private static String DATA_TYPE_PATTERN = "(Iow|SIow|Chlo|Chain|Iowf|SIowf|Worthless)[ |;|#|\n]";
+    private static String TAG_ATTRIBUTE_PATTERN = "([^A-Za-z0-9_#;\\[\\(\\)\\.\\=\\{\\}\\]\"\'+-/\\*])";
+//    private static String TAG_ATTRIBUTE_PATTERN = "(" + GENERIC_XML_NAME + ")\\w*\\=";
+    
     private static String TAG_ATTRIBUTE_VALUE = "\\w*\\=\\w*(\"[^\"]*\")";
     private static String TAG_COMMENT = "(<\\!--[\\w ]*-->)";
     private static String TAG_CDATA = "(<\\!\\[CDATA\\[.*\\]\\]>)";
