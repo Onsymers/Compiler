@@ -212,7 +212,8 @@ public class compiler_scanner{
 //           System.out.println(iterator); 
            iterator++;
             
-       }while(iterator<Char_array_util.len(word)&&error(state)==1);
+       }
+       while(iterator<Char_array_util.len(word)&&error(state)==1);
        
         
         if(state==0||error(state)==0){

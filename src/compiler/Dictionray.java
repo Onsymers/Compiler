@@ -43,6 +43,16 @@ public class Dictionray<K,V> {
 
                 }
             }
+        }else if(key instanceof String){
+            for(int index =0;index<this.counter;index++){
+                 char [] true_key = (char [])this.map[index].Key();
+                 String checked_key = (String) key;
+                 char true_char[]= checked_key.toCharArray();
+             if(Char_array_util.equals(true_key,true_char)){
+                 return this.map[index];
+                }
+             
+            }
         }
        
         return null;

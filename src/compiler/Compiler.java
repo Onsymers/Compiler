@@ -68,6 +68,8 @@ public class Compiler {
             GUI.PrintInLog((char[])tokens.EntryAt(i).Key().Value());
             GUI.PrintInLog("\n");
           }
+        GUI.PrintInLog("count Error");
+
     }
     //System.out.print("Done");
     //System.exit(1);
